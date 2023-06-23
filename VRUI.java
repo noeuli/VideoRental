@@ -30,12 +30,12 @@ public class VRUI {
 				default: break ;
 			}
 		}
-		System.out.println("Bye");
+		writeOutput("Bye");
 	}
 
 	public void clearRentals() {
-		System.out.println("Enter customer name: ") ;
-		String customerName = scanner.next() ;
+		writeOutput("Enter customer name: ");
+		String customerName = readInput();
 
 		Customer foundCustomer = null ;
 		for ( Customer customer: customers ) {
@@ -46,10 +46,10 @@ public class VRUI {
 		}
 
 		if ( foundCustomer == null ) {
-			System.out.println("No customer found") ;
+			writeOutput("No customer found");
 		} else {
-			System.out.println("Name: " + foundCustomer.getName() +
-					"\tRentals: " + foundCustomer.getRentals().size()) ;
+			writeOutput("Name: " + foundCustomer.getName() +
+					"\tRentals: " + foundCustomer.getRentals().size());
 			for ( Rental rental: foundCustomer.getRentals() ) {
 				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
 				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
@@ -61,8 +61,8 @@ public class VRUI {
 	}
 
 	public void returnVideo() {
-		System.out.println("Enter customer name: ") ;
-		String customerName = scanner.next() ;
+		writeOutput("Enter customer name: ");
+		String customerName = readInput();
 
 		Customer foundCustomer = null ;
 		for ( Customer customer: customers ) {
@@ -73,8 +73,8 @@ public class VRUI {
 		}
 		if ( foundCustomer == null ) return ;
 
-		System.out.println("Enter video title to return: ") ;
-		String videoTitle = scanner.next() ;
+		writeOutput("Enter video title to return: ");
+		String videoTitle = readInput();
 
 		List<Rental> customerRentals = foundCustomer.getRentals() ;
 		for ( Rental rental: customerRentals ) {
@@ -105,30 +105,34 @@ public class VRUI {
 	}
 
 	public void listVideos() {
-		System.out.println("List of videos");
+		writeOutput("List of videos");
 
 		for ( Video video: videos ) {
-			System.out.println("Price code: " + video.getPriceCode() +"\tTitle: " + video.getTitle()) ;
+			writeOutput("Price code: " + video.getPriceCode() + "\tTitle: " + video.getTitle());
 		}
-		System.out.println("End of list");
+		writeOutput("End of list");
+	}
+
+	private static void writeOutput(String List_of_videos) {
+		System.out.println(List_of_videos);
 	}
 
 	public void listCustomers() {
-		System.out.println("List of customers");
+		writeOutput("List of customers");
 		for ( Customer customer: customers ) {
-			System.out.println("Name: " + customer.getName() +
-					"\tRentals: " + customer.getRentals().size()) ;
+			writeOutput("Name: " + customer.getName() +
+					"\tRentals: " + customer.getRentals().size());
 			for ( Rental rental: customer.getRentals() ) {
 				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
 				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
 			}
 		}
-		System.out.println("End of list");
+		writeOutput("End of list");
 	}
 
 	public void getCustomerReport() {
-		System.out.println("Enter customer name: ") ;
-		String customerName = scanner.next() ;
+		writeOutput("Enter customer name: ");
+		String customerName = readInput();
 
 		Customer foundCustomer = null ;
 		for ( Customer customer: customers ) {
@@ -139,16 +143,20 @@ public class VRUI {
 		}
 
 		if ( foundCustomer == null ) {
-			System.out.println("No customer found") ;
+			writeOutput("No customer found");
 		} else {
 			String result = foundCustomer.getReport() ;
-			System.out.println(result);
+			writeOutput(result);
 		}
 	}
 
+	private static String readInput() {
+		return scanner.next();
+	}
+
 	public void rentVideo() {
-		System.out.println("Enter customer name: ") ;
-		String customerName = scanner.next() ;
+		writeOutput("Enter customer name: ");
+		String customerName = readInput();
 
 		Customer foundCustomer = null ;
 		for ( Customer customer: customers ) {
@@ -160,8 +168,8 @@ public class VRUI {
 
 		if ( foundCustomer == null ) return ;
 
-		System.out.println("Enter video title to rent: ") ;
-		String videoTitle = scanner.next() ;
+		writeOutput("Enter video title to rent: ");
+		String videoTitle = readInput();
 
 		Video foundVideo = null ;
 		for ( Video video: videos ) {
@@ -183,19 +191,19 @@ public class VRUI {
 
 	public void register(String object) {
 		if ( object.equals("customer") ) {
-			System.out.println("Enter customer name: ") ;
-			String name = scanner.next();
+			writeOutput("Enter customer name: ");
+			String name = readInput();
 			Customer customer = new Customer(name) ;
 			customers.add(customer) ;
 		}
 		else {
-			System.out.println("Enter video title to register: ") ;
-			String title = scanner.next() ;
+			writeOutput("Enter video title to register: ");
+			String title = readInput();
 
-			System.out.println("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):") ;
+			writeOutput("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):");
 			int videoType = scanner.nextInt();
 
-			System.out.println("Enter price code( 1 for Regular, 2 for New Release ):") ;
+			writeOutput("Enter price code( 1 for Regular, 2 for New Release ):");
 			int priceCode = scanner.nextInt();
 
 			Date registeredDate = new Date();
@@ -205,16 +213,16 @@ public class VRUI {
 	}
 
 	public int showCommand() {
-		System.out.println("\nSelect a command !");
-		System.out.println("\t 0. Quit");
-		System.out.println("\t 1. List customers");
-		System.out.println("\t 2. List videos");
-		System.out.println("\t 3. Register customer");
-		System.out.println("\t 4. Register video");
-		System.out.println("\t 5. Rent video");
-		System.out.println("\t 6. Return video");
-		System.out.println("\t 7. Show customer report");
-		System.out.println("\t 8. Show customer and clear rentals");
+		writeOutput("\nSelect a command !");
+		writeOutput("\t 0. Quit");
+		writeOutput("\t 1. List customers");
+		writeOutput("\t 2. List videos");
+		writeOutput("\t 3. Register customer");
+		writeOutput("\t 4. Register video");
+		writeOutput("\t 5. Rent video");
+		writeOutput("\t 6. Return video");
+		writeOutput("\t 7. Show customer report");
+		writeOutput("\t 8. Show customer and clear rentals");
 
 		int command = scanner.nextInt() ;
 
