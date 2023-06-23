@@ -38,12 +38,7 @@ public class VRUI {
 		String customerName = readInput();
 
 		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		foundCustomer = findCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			writeOutput("No customer found");
@@ -60,17 +55,21 @@ public class VRUI {
 		}
 	}
 
+	private Customer findCustomer(String customerName) {
+		for ( Customer customer: customers ) {
+			if ( customer.getName().equals(customerName)) {
+				return customer ;
+			}
+		}
+		return null;
+	}
+
 	public void returnVideo() {
 		writeOutput("Enter customer name: ");
 		String customerName = readInput();
 
 		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		foundCustomer = findCustomer(customerName);
 		if ( foundCustomer == null ) return ;
 
 		writeOutput("Enter video title to return: ");
@@ -135,12 +134,7 @@ public class VRUI {
 		String customerName = readInput();
 
 		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		foundCustomer = findCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			writeOutput("No customer found");
@@ -159,12 +153,7 @@ public class VRUI {
 		String customerName = readInput();
 
 		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		foundCustomer = findCustomer(customerName);
 
 		if ( foundCustomer == null ) return ;
 
