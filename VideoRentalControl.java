@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,10 @@ public class VideoRentalControl {
     List<Video> videos = new ArrayList<Video>();
 
     public VideoRentalControl() {
+    }
+
+    public List<Video> getVideoList() {
+        return Collections.unmodifiableList(videos);
     }
 
     public void clearCustomerRental(String customerName) {
@@ -68,15 +73,6 @@ public class VideoRentalControl {
 
         james.addRental(r1);
         james.addRental(r2);
-    }
-
-    public void listVideos() {
-        VRUI.writeOutput("List of videos");
-
-        for (Video video : videos) {
-            VRUI.writeOutput("Price code: " + video.getPriceCode() + "\tTitle: " + video.getTitle());
-        }
-        VRUI.writeOutput("End of list");
     }
 
     public void listCustomers() {

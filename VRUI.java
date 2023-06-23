@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class VRUI {
@@ -45,13 +46,17 @@ public class VRUI {
 	}
 
 	private void init() {
-
 		videoRentalControl.init();
 	}
 
 	public void listVideos() {
+		writeOutput("List of videos");
 
-		videoRentalControl.listVideos();
+		List<Video> videos = videoRentalControl.getVideoList();
+		for (Video video : videos) {
+			writeOutput("Price code: " + video.getPriceCode() + "\tTitle: " + video.getTitle());
+		}
+		writeOutput("End of list");
 	}
 
 	public static void writeOutput(String List_of_videos) {
