@@ -9,13 +9,7 @@ public class VideoRentalControl {
     public VideoRentalControl() {
     }
 
-    public void clearRentals(String customerName) {
-        VRUI.writeOutput("Enter customer name: ");
-
-        clearCustomerRental(customerName);
-    }
-
-    void clearCustomerRental(String customerName) {
+    public void clearCustomerRental(String customerName) {
         Customer foundCustomer = null;
         foundCustomer = findCustomer(customerName);
 
@@ -44,13 +38,9 @@ public class VideoRentalControl {
     }
 
     public void returnVideo(String customerName, String videoTitle) {
-        VRUI.writeOutput("Enter customer name: ");
-
         Customer foundCustomer = null;
         foundCustomer = findCustomer(customerName);
         if (foundCustomer == null) return;
-
-        VRUI.writeOutput("Enter video title to return: ");
 
         List<Rental> customerRentals = foundCustomer.getRentals();
         for (Rental rental : customerRentals) {

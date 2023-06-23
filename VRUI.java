@@ -28,21 +28,19 @@ public class VRUI {
 	}
 
 	public void clearRentals() {
-		videoRentalControl.clearRentals(readInput());
-	}
+		writeOutput("Enter customer name: ");
+		String name = readInput();
 
-	private void clearCustomerRental(String customerName) {
-
-		videoRentalControl.clearCustomerRental(customerName);
-	}
-
-	private Customer findCustomer(String customerName) {
-		return videoRentalControl.findCustomer(customerName);
+		videoRentalControl.clearCustomerRental(name);
 	}
 
 	public void returnVideo() {
+		writeOutput("Enter customer name: ");
 		String customerName = readInput();
+
+		writeOutput("Enter video title to return: ");
 		String videoTitle = readInput();
+
 		videoRentalControl.returnVideo(customerName, videoTitle);
 	}
 
