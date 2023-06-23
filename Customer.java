@@ -41,19 +41,48 @@ public class Customer {
 		int totalPoint = 0;
 
 		for (Rental each : rentals) {
-			double eachCharge = 0;
-			int eachPoint = 0 ;
-			int daysRented = 0;
+			int daysRented = calculateDaysRented(each);
+			double eachCharge = calculateEachCharge(each, daysRented);
+			int eachPoint = calculateEachPoint(each, daysRented);
 
-			if (each.getStatus() == 1) { // returned Video
-				long diff = each.getReturnDate().getTime() - each.getRentDate().getTime();
-				daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
-			} else { // not yet returned
-				long diff = new Date().getTime() - each.getRentDate().getTime();
-				daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
-			}
+			result += "\t" + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
+					+ "\tPoint: " + eachPoint + "\n";
 
-			switch (each.getVideo().getPriceCode()) {
+			totalCharge += eachCharge;
+			totalPoint += eachPoint ;
+		}
+
+		result += "Total charge: " + totalCharge + "\tTotal Point:" + totalPoint + "\n";
+
+		issueCoupon(totalPoint);
+
+		return result ;
+	}
+
+	// extract method
+	private void issueCoupon(int totalPoint) {
+		if ( totalPoint >= 10 ||  totalPoint >= 30) {
+			System.out.println("Congrat! You earned one free coupon");
+		}
+	}
+
+	// extract method
+	private int calculateEachPoint(Rental each, int daysRented) {
+		int eachPoint = 0 ;
+		eachPoint++;
+
+		if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE) )
+			eachPoint++;
+
+		if ( daysRented > each.getDaysRentedLimit() )
+			eachPoint -= Math.min(eachPoint, each.getVideo().getLateReturnPointPenalty()) ;
+		return eachPoint;
+	}
+
+	// extract method
+	private double calculateEachCharge(Rental each, int daysRented) {
+		double eachCharge = 0;
+		switch (each.getVideo().getPriceCode()) {
 			case Video.REGULAR:
 				eachCharge += 2;
 				if (daysRented > 2)
@@ -62,33 +91,18 @@ public class Customer {
 			case Video.NEW_RELEASE:
 				eachCharge = daysRented * 3;
 				break;
-			}
-
-			eachPoint++;
-
-			if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE) )
-				eachPoint++;
-
-			if ( daysRented > each.getDaysRentedLimit() )
-				eachPoint -= Math.min(eachPoint, each.getVideo().getLateReturnPointPenalty()) ;
-
-			result += "\t" + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
-					+ "\tPoint: " + eachPoint + "\n";
-
-			totalCharge += eachCharge;
-
-			totalPoint += eachPoint ;
 		}
+		return eachCharge;
+	}
 
-		result += "Total charge: " + totalCharge + "\tTotal Point:" + totalPoint + "\n";
-
-
-		if ( totalPoint >= 10 ) {
-			System.out.println("Congrat! You earned one free coupon");
+	// extract method
+	private int calculateDaysRented(Rental each) {
+		long diff;
+		if (each.getStatus() == 1) { // returned Video
+			diff = each.getReturnDate().getTime() - each.getRentDate().getTime();
+		} else { // not yet returned
+			diff = new Date().getTime() - each.getRentDate().getTime();
 		}
-		if ( totalPoint >= 30 ) {
-			System.out.println("Congrat! You earned two free coupon");
-		}
-		return result ;
+		return (int) (diff / (1000 * 60 * 60 * 24)) + 1;
 	}
 }
