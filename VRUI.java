@@ -37,6 +37,10 @@ public class VRUI {
 		writeOutput("Enter customer name: ");
 		String customerName = readInput();
 
+		clearCustomerRental(customerName);
+	}
+
+	private void clearCustomerRental(String customerName) {
 		Customer foundCustomer = null ;
 		foundCustomer = findCustomer(customerName);
 
