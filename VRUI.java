@@ -64,11 +64,24 @@ public class VRUI {
 	}
 
 	public void listCustomers() {
-		videoRentalControl.listCustomers();
+		writeOutput("List of customers");
+		List<Customer> customers = videoRentalControl.getCustomerList();
+
+		for (Customer customer : customers) {
+			writeOutput("Name: " + customer.getName() +
+					"\tRentals: " + customer.getRentals().size());
+			for (Rental rental : customer.getRentals()) {
+				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ");
+				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode());
+			}
+		}
+		writeOutput("End of list");
 	}
 
 	public void getCustomerReport() {
+		writeOutput("Enter customer name: ");
 		String customerName = readInput();
+
 		videoRentalControl.getCustomerReport(customerName);
 	}
 

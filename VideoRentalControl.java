@@ -14,6 +14,10 @@ public class VideoRentalControl {
         return Collections.unmodifiableList(videos);
     }
 
+    public List<Customer> getCustomerList() {
+        return Collections.unmodifiableList(customers);
+    }
+
     public void clearCustomerRental(String customerName) {
         Customer foundCustomer = null;
         foundCustomer = findCustomer(customerName);
@@ -89,8 +93,6 @@ public class VideoRentalControl {
     }
 
     public void getCustomerReport(String customerName) {
-        VRUI.writeOutput("Enter customer name: ");
-
         Customer foundCustomer = null;
         foundCustomer = findCustomer(customerName);
 
